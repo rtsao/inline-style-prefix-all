@@ -79,7 +79,7 @@ describe('Resolving special plugins', () => {
       flexDirection: 'column-reverse'
     }
     expect(prefixAll(input)).to.eql(output)
-    expect(prefixAll(input)).to.eql(output)
+    expect(prefixAll(output)).to.eql(output)
   })
 
   it('should resolve alternative values for all flexbox specification', () => {
@@ -91,7 +91,7 @@ describe('Resolving special plugins', () => {
       msFlexPack: 'distribute'
     }
     expect(prefixAll(input)).to.eql(output)
-    expect(prefixAll(input)).to.eql(output)
+    expect(prefixAll(output)).to.eql(output)
   })
 
   it('should resolve flexbox variants', () => {
@@ -109,7 +109,7 @@ describe('Resolving special plugins', () => {
       width: '200px'
     }
     expect(prefixAll(input)).to.eql(output)
-    expect(prefixAll(input)).to.eql(output)
+    expect(prefixAll(output)).to.eql(output)
   })
 
   it('should not resolve alternative values on alignSelf', () => {
@@ -120,7 +120,7 @@ describe('Resolving special plugins', () => {
       alignSelf: 'flex-start'
     }
     expect(prefixAll(input)).to.eql(output)
-    expect(prefixAll(input)).to.eql(output)
+    expect(prefixAll(output)).to.eql(output)
   })
 
   it('should prefix gradients', () => {
@@ -131,7 +131,7 @@ describe('Resolving special plugins', () => {
       background: [ '-webkit-linear-gradient(to bottom right, red, yellow)', '-moz-linear-gradient(to bottom right, red, yellow)', 'linear-gradient(to bottom right, red, yellow)' ]
     }
     expect(prefixAll(input)).to.eql(output)
-    expect(prefixAll(input)).to.eql(output)
+    expect(prefixAll(output)).to.eql(output)
   })
 
   it('should add all flexbox display types', () => {
@@ -140,7 +140,7 @@ describe('Resolving special plugins', () => {
       display: [ '-webkit-box', '-moz-box', '-ms-flexbox', '-webkit-flex', 'flex' ]
     }
     expect(prefixAll(input)).to.eql(output)
-    expect(prefixAll(input)).to.eql(output)
+    expect(prefixAll(output)).to.eql(output)
   })
 
   it('should add all inline flexbox display types', () => {
@@ -149,7 +149,7 @@ describe('Resolving special plugins', () => {
       display: [ '-webkit-box', '-moz-box', '-ms-inline-flexbox', '-webkit-inline-flex', 'inline-flex' ]
     }
     expect(prefixAll(input)).to.eql(output)
-    expect(prefixAll(input)).to.eql(output)
+    expect(prefixAll(output)).to.eql(output)
   })
 
   it('should prefix special sizing values', () => {
@@ -158,7 +158,7 @@ describe('Resolving special plugins', () => {
       width: [ '-webkit-min-content', '-moz-min-content', 'min-content' ]
     }
     expect(prefixAll(input)).to.eql(output)
-    expect(prefixAll(input)).to.eql(output)
+    expect(prefixAll(output)).to.eql(output)
   })
 
   it('should prefix every property within transition values', () => {
@@ -170,7 +170,7 @@ describe('Resolving special plugins', () => {
       transition: '200ms linear -moz-appearance,200ms linear -webkit-appearance,200ms linear appearance, 100ms linear width'
     }
     expect(prefixAll(input)).to.eql(output)
-    expect(prefixAll(input)).to.eql(output)
+    expect(prefixAll(output)).to.eql(output)
   })
 
   it('should prefix transition values for prefixed properties', () => {
@@ -179,7 +179,7 @@ describe('Resolving special plugins', () => {
       WebkitTransition: '200ms linear -webkit-appearance,200ms linear appearance'
     }
     expect(prefixAll(input)).to.eql(output)
-    expect(prefixAll(input)).to.eql(output)
+    expect(prefixAll(output)).to.eql(output)
   })
 
   it('should not prefix msTransition or mozTransition', () => {
@@ -192,6 +192,43 @@ describe('Resolving special plugins', () => {
       mozTransition: '300ms linear width'
     }
     expect(prefixAll(input)).to.eql(output)
-    expect(prefixAll(input)).to.eql(output)
+    expect(prefixAll(output)).to.eql(output)
   })
+
+  it('should prefix special sizing values', () => {
+    const input = { width: ['100%', 'min-content'] }
+    const output = {
+      width: [ '100%', '-webkit-min-content', '-moz-min-content', 'min-content' ]
+    }
+    expect(prefixAll(input)).to.eql(output)
+    expect(prefixAll(output)).to.eql(output)
+  })
+
+  it('should prefix special sizing values', () => {
+    const input = { width: ['calc(100%)', 'min-content'] }
+    const output = {
+      width: [ '-webkit-calc(100%)', '-moz-calc(100%)', 'calc(100%)', '-webkit-min-content', '-moz-min-content', 'min-content' ]
+    }
+    expect(prefixAll(input)).to.eql(output)
+    expect(prefixAll(output)).to.eql(output)
+  })
+
+  it('should prefix special sizing values', () => {
+    const input = { width: ['calc(100%)'] }
+    const output = {
+      width: [ '-webkit-calc(100%)', '-moz-calc(100%)', 'calc(100%)' ]
+    }
+    expect(prefixAll(input)).to.eql(output)
+    expect(prefixAll(output)).to.eql(output)
+  })
+
+  it('should prefix special sizing values', () => {
+    const input = { width: 'calc(100%)' }
+    const output = {
+      width: [ '-webkit-calc(100%)', '-moz-calc(100%)', 'calc(100%)' ]
+    }
+    expect(prefixAll(input)).to.eql(output)
+    expect(prefixAll(output)).to.eql(output)
+  })
+
 })
